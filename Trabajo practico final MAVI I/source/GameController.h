@@ -6,16 +6,17 @@ class GameController
 {
 private:
 
-	int screen_width = 1080;
-	int screen_height = 720;
-	const char *title = "Rainbow Hero Shield";
+	//Parametros para la construccion de la pantalla
+	const int screen_width = 1080;
+	const int screen_height = 720;
+	const char *title = "Rainbow Shield Hero";
 
 public:
 
-	GameController();
-	~GameController();
+	GameController(); //Aqui inicializamos la ventana
+	~GameController(); //Descargamos recursos
 
-	void InitScreen(); //Se inicia la ventana
+	void Run(); //Metodo que corre el juego.
 
 	void Events(); //Eventos del juego (inputs ej.)
 	void UpdateGame(); //Acctualiza el estado del juego (movimiento ej.)

@@ -10,7 +10,7 @@ int main(void)
 
     GameController* GM = new GameController();
 
-    GM->InitScreen();
+  
 
 
     // Bucle principal del juego (se repite hasta que se cierre la ventana)
