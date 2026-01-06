@@ -1,6 +1,8 @@
 #pragma once
 #include "raylib.h"
 #include <iostream>
+#include "Player.h"
+
 
 class GameController
 {
@@ -11,6 +13,8 @@ private:
 	const int screen_height = 720;
 	const char *title = "Rainbow Shield Hero";
 
+	Player p1;
+
 public:
 
 	GameController(); //Aqui inicializamos la ventana
@@ -19,7 +23,7 @@ public:
 	void Run(); //Metodo que corre el juego.
 
 	void Events(); //Eventos del juego (inputs ej.)
-	void UpdateGame(); //Acctualiza el estado del juego (movimiento ej.)
+	void Update(); //Acctualiza el estado del juego (movimiento ej.)
 	void DrawGame(); //Dibuja en pantalla el juego
 	
 };

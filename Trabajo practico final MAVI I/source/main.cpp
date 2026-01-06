@@ -9,26 +9,8 @@ int main(void)
 {
 
     GameController* GM = new GameController();
-
-  
-
-
-    // Bucle principal del juego (se repite hasta que se cierre la ventana)
-    while (!WindowShouldClose())
-    {
-        // Iniciamos la etapa de dibujo
-        BeginDrawing();
-
-        // Limpiamos la pantalla 
-        ClearBackground(WHITE);
-
-
-        // Finalizamos el dibujo
-        EndDrawing();
-    }
-
-    // Cerramos la ventana y liberamos recursos
-    CloseWindow();
+    
+    GM->Run();
 
     return 0;
 }
