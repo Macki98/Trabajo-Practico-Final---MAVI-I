@@ -19,5 +19,6 @@ public:
 	void Jump(); //Salto con gravedad
 	void Draw(); //Mostar el personaje en pantalla
 
+	
 };
 
