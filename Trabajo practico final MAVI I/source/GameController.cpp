@@ -14,6 +14,7 @@ GameController::~GameController()
 {
 	CloseAudioDevice();
 	CloseWindow();
+	p1.~Player();
 }
 
 void GameController::Run()
@@ -30,6 +31,7 @@ void GameController::Events()
 {
 	if (IsKeyPressed(KEY_ESCAPE))
 	{
+		
 		CloseWindow();
 	}
 

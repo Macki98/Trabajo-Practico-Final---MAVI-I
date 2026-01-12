@@ -22,13 +22,14 @@ void Player::Init() {
 	};
 
 	accel = 0.95f;
+
 	player = { pos.x,pos.y, 50,120 };
 }
 
 void Player::Move()
 {
 	float deltaTime = GetFrameTime();
-	float gravity = 350.0f;
+	float gravity = 450.0f;
 	if (IsKeyDown(KEY_A))
 	{
 		pos.x -= vel.x * deltaTime;
@@ -40,6 +41,7 @@ void Player::Move()
 
 	if (pos.y >= GetScreenHeight() - player.height)
 	{
+		pos.y = (GetScreenHeight() - player.height);
 		vel.y = 0;
 		Jump();
 	}
@@ -54,11 +56,9 @@ void Player::Move()
 
 void Player::Jump()
 {
-
-	float deltaTime = GetFrameTime();
 	if (IsKeyPressed(KEY_SPACE))
 	{
-		vel.y = -400.0f;
+		vel.y = -350.0f;
 	}
 }
 
