@@ -2,6 +2,9 @@
 #include "raylib.h"
 #include <iostream>
 #include "Player.h"
+#include "Enemy.h"
+#include "Projectile.h"
+
 
 
 class GameController
@@ -14,6 +17,8 @@ private:
 	const char *title = "Rainbow Shield Hero";
 
 	Player p1;
+	Enemy e1;
+	Projectile pro1;
 
 public:
 

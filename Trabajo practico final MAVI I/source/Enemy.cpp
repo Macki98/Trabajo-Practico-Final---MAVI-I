@@ -27,10 +27,17 @@ void Enemy::Init()
 void Enemy::Update()
 {
 	float deltaTime = GetFrameTime();
-	pos.x += vel.x * deltaTime;
+	pos.x -= vel.x * deltaTime;
 
 }
 
 void Enemy::Draw()
 {
+	DrawRectangleLines(
+		pos.x,
+		pos.y,
+		enemy.width,
+		enemy.height,
+		RED
+		);
 }
