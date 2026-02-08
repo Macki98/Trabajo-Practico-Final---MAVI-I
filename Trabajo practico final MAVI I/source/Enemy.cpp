@@ -41,3 +41,9 @@ void Enemy::Draw()
 		RED
 		);
 }
+
+void Enemy::Attack()
+{
+	projectiles.push_back(Projectile(pos));
+}
+

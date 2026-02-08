@@ -1,9 +1,9 @@
 #include "Projectile.h"
 #include <iostream>
 
-Projectile::Projectile()
+Projectile::Projectile(Vector2 _StartPos)
 {
-
+	this->pos = _StartPos;
 }
 
 Projectile::~Projectile()

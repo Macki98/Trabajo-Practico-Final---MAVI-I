@@ -3,6 +3,10 @@
 #include "raylib.h"
 #include "raymath.h"
 
+#include "Projectile.h"
+
+#include <vector>
+
 class Enemy
 {
 private:
@@ -11,6 +15,8 @@ private:
 
 	Rectangle enemy; // Prototipo que servira de hitbox
 
+
+	std::vector<Projectile>projectiles;
 
 public:
 
@@ -21,5 +27,7 @@ public:
 
 	void Update();
 	void Draw();
+
+	void Attack();
 };
 

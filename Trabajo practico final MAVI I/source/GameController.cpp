@@ -9,7 +9,6 @@ GameController::GameController()
 
 	p1.Init();
 	e1.Init();
-	pro1.Init();
 }
 
 GameController::~GameController()
@@ -45,7 +44,6 @@ void GameController::Update()
 {
 	p1.Move();
 	e1.Update();
-	pro1.Update();
 
 }
 
@@ -58,7 +56,6 @@ void GameController::DrawGame()
 
 	p1.Draw();
 	e1.Draw();
-	pro1.Draw();
 	// Finalizamos el dibujo
 	EndDrawing();
 }

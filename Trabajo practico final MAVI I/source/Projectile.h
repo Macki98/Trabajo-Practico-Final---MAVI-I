@@ -14,7 +14,7 @@ private:
 
 public:
 
-	Projectile();
+	Projectile(Vector2 _StartPos);
 	~Projectile();
 
 	void Init();

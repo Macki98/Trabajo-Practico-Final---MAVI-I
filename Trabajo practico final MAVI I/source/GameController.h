@@ -1,6 +1,7 @@
 #pragma once
 #include "raylib.h"
 #include <iostream>
+
 #include "Player.h"
 #include "Enemy.h"
 #include "Projectile.h"
@@ -18,7 +19,7 @@ private:
 
 	Player p1;
 	Enemy e1;
-	Projectile pro1;
+
 
 public:
 
@@ -30,6 +31,7 @@ public:
 	void Events(); //Eventos del juego (inputs ej.)
 	void Update(); //Acctualiza el estado del juego (movimiento ej.)
 	void DrawGame(); //Dibuja en pantalla el juego
+	
 	
 };
 
