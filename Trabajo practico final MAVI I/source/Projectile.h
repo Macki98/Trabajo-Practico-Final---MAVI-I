@@ -14,14 +14,14 @@ private:
 
 public:
 
-	Projectile(Vector2 _StartPos);
+	Projectile(Vector2 _StartPos, Vector2 _Aim);
 	~Projectile();
 
-	void Init();
 
 	void Update();
 	void Draw();
 
+	bool active;
 	bool IsOffScreen();
 };
 

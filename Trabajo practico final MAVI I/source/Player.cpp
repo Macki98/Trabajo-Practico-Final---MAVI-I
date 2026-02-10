@@ -73,4 +73,9 @@ void Player::Draw() // Dibujamos el personaje en pantalla
 		GREEN);
 }
 
+float Player::GetPos()
+{
+	return pos.x, pos.y;
+}
+
 

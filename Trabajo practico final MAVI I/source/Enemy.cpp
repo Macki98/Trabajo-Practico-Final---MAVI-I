@@ -42,8 +42,14 @@ void Enemy::Draw()
 		);
 }
 
+void Enemy::Aim()
+{
+
+}
+
 void Enemy::Attack()
 {
-	projectiles.push_back(Projectile(pos));
+
+	projectiles.push_back(Projectile(pos,));
 }
 

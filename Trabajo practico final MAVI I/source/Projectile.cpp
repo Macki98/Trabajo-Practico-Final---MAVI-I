@@ -1,28 +1,14 @@
 #include "Projectile.h"
 #include <iostream>
 
-Projectile::Projectile(Vector2 _StartPos)
+Projectile::Projectile(Vector2 _StartPos, Vector2 _Aim)
 {
 	this->pos = _StartPos;
+	this->vel = _Aim;
 }
 
 Projectile::~Projectile()
 {
-}
-
-void Projectile::Init() 
-{
-	pos = {
-		(float)GetScreenWidth() / 2,
-		(float)GetScreenHeight() / 2
-	};
-
-	vel = {
-		200.0f,
-		200.0f
-	};
-
-	r = 25.0;
 }
 
 void Projectile::Update() 
@@ -41,21 +27,26 @@ void Projectile::Update()
 
 void Projectile::Draw()
 {
-	DrawCircleV(pos,r,ORANGE);
+	if (active) {
+		DrawCircleV(pos, r, ORANGE);
+	}
 }
 
 bool Projectile::IsOffScreen()
 {
 	if (
-		(pos.x - r) <= 0 || (pos.x + r) >= GetScreenWidth() ||
-		(pos.y - r) <= 0 || (pos.y + r) >= GetScreenHeight()
+		(pos.x - r) <= 0 || 
+		(pos.x + r) >= GetScreenWidth() ||
+		(pos.y - r) <= 0 || 
+		(pos.y + r) >= GetScreenHeight()
 		)
 	{
-		
+		active = false;
 		return true;
 	}
 	else
 	{
+		active = true;
 		return false;
 	}
 }

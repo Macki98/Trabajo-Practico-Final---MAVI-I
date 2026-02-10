@@ -15,6 +15,8 @@ private:
 
 	Rectangle enemy; // Prototipo que servira de hitbox
 
+	float spawn_projectile;
+	float shot_interval;
 
 	std::vector<Projectile>projectiles;
 
@@ -28,6 +30,7 @@ public:
 	void Update();
 	void Draw();
 
+	void Aim();
 	void Attack();
 };
 
