@@ -16,7 +16,7 @@ void Player::Init() {
 	(float)GetScreenHeight() / 2 // Y
 	};
 
-	vel = {
+	dir = {
 		200.0f, // Velocidada X
 		0 // Velocidad Y
 	};
@@ -33,25 +33,25 @@ void Player::Move()
 
 	if (IsKeyDown(KEY_A)) // Movimiento Izq
 	{
-		pos.x -= vel.x * deltaTime;
+		pos.x -= dir.x * deltaTime;
 	}
 	else if (IsKeyDown(KEY_D)) // Movimiento Der
 	{
-		pos.x += vel.x * deltaTime;
+		pos.x += dir.x * deltaTime;
 	}
 
 	if (pos.y >= GetScreenHeight() - player.height) // Impacto contra el limite inferior de la pantalla
 	{
 		pos.y = (GetScreenHeight() - player.height);
-		vel.y = 0;
+		dir.y = 0;
 		Jump();
 	}
 	else // Aplicamos gravedad
 	{
-		vel.y += gravity * deltaTime;
+		dir.y += gravity * deltaTime;
 	}
 
-	pos.y += vel.y * deltaTime; // Actualizamos la posicion segun la fuerza de gravedad
+	pos.y += dir.y * deltaTime; // Actualizamos la posicion segun la fuerza de gravedad
 }
 
 
@@ -59,7 +59,7 @@ void Player::Jump()
 {
 	if (IsKeyPressed(KEY_SPACE)) // Salto con Barra espaciadora
 	{
-		vel.y = -350.0f;
+		dir.y = -350.0f;
 	}
 }
 
@@ -73,9 +73,9 @@ void Player::Draw() // Dibujamos el personaje en pantalla
 		GREEN);
 }
 
-float Player::GetPos()
+Vector2 Player::GetPos() const
 {
-	return pos.x, pos.y;
+	return pos;
 }
 
 

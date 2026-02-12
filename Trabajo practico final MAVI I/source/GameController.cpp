@@ -32,8 +32,9 @@ void GameController::Events()
 {
 	if (IsKeyPressed(KEY_ESCAPE))
 	{
-		
+
 		CloseWindow();
+
 	}
 
 
@@ -43,6 +44,8 @@ void GameController::Events()
 void GameController::Update()
 {
 	p1.Move();
+
+	e1.Aim(p1);
 	e1.Update();
 
 }

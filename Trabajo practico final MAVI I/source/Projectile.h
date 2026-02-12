@@ -7,21 +7,23 @@ class Projectile
 private:
 
 	Vector2 pos;
-	Vector2 vel;
+	Vector2 dir;
 	float r;
 
-	float accel;
+	float speed;
+
+	bool active;
 
 public:
 
-	Projectile(Vector2 _StartPos, Vector2 _Aim);
+	Projectile(	Vector2 _StartPos, 
+				Vector2 _Target,
+				float _spd);
 	~Projectile();
 
 
 	void Update();
 	void Draw();
-
-	bool active;
-	bool IsOffScreen();
+	
 };
 

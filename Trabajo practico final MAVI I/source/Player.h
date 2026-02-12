@@ -6,7 +6,7 @@ class Player
 private:
 
 	Vector2 pos = Vector2Zero(); //posicion en el eje
-	Vector2 vel = Vector2Zero(); // fuerza de desplazamiernto
+	Vector2 dir = Vector2Zero(); // fuerza de desplazamiento
 	float accel = 0.0f; //Aceleracion del personaje
 	Rectangle player; //Prototipo que servira de hitbox
 
@@ -20,7 +20,7 @@ public:
 	void Jump(); //Salto con gravedad
 	void Draw(); //Mostar el personaje en pantalla
 
-	float GetPos(); //Funcion que devuelve la posicion del jugador
+	Vector2 GetPos() const; //Funcion que devuelve la posicion del jugador
 	
 };
 

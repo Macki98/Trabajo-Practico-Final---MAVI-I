@@ -16,7 +16,7 @@ void Enemy::Init()
 		(float)GetScreenHeight() / 2 // Y
 	};
 
-	vel = {
+	dir = {
 		200.0f, // Velocidad X
 		0 // Velocidad Y
 	};
@@ -26,8 +26,9 @@ void Enemy::Init()
 
 void Enemy::Update()
 {
+
 	float deltaTime = GetFrameTime();
-	pos.x -= vel.x * deltaTime;
+	pos.x -= dir.x * deltaTime;
 
 }
 
@@ -42,14 +43,22 @@ void Enemy::Draw()
 		);
 }
 
-void Enemy::Aim()
+Vector2 Enemy::Aim(Player& _target)
 {
+	Vector2 playerPos = _target.GetPos();
+
+	direction_to_target = { playerPos.x - pos.x,
+							playerPos.y - pos.y 
+	};
+	
+	return direction_to_target;
 
 }
 
 void Enemy::Attack()
 {
 
-	projectiles.push_back(Projectile(pos,));
+	projectiles.push_back(Projectile(pos, direction_to_target, 150.0f));
+	
 }
 
