@@ -22,7 +22,7 @@ private:
 
 	//Mover al GameController para mas eficiencia
 	//Y pasar como parametro& a funcion Attack
-	std::vector<Projectile>projectiles; // Contenedor de proyectiles.
+	// Contenedor de proyectiles.
 
 public:
 
@@ -35,6 +35,6 @@ public:
 	void Draw();
 
 	Vector2 Aim(Player& _target); // Pasamos Player como argumento
-	void Attack();
+	void Attack(std::vector<Projectile>& projectiles);
 };
 

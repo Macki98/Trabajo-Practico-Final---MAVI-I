@@ -55,7 +55,7 @@ Vector2 Enemy::Aim(Player& _target)
 
 }
 
-void Enemy::Attack()
+void Enemy::Attack(std::vector<Projectile>& projectiles)
 {
 
 	projectiles.push_back(Projectile(pos, direction_to_target, 150.0f));

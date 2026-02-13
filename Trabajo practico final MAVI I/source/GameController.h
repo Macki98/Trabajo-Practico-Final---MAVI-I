@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "Projectile.h"
 
+#include <vector>
 
 
 class GameController
@@ -20,6 +21,9 @@ private:
 	Player p1;
 	Enemy e1;
 
+	std::vector<Projectile>projectiles;
+
+	
 
 public:
 
