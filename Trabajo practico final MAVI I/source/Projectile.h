@@ -25,5 +25,6 @@ public:
 	void Update();
 	void Draw();
 	
+	bool IsActive() const;
 };
 

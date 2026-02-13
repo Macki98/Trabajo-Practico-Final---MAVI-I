@@ -55,10 +55,22 @@ Vector2 Enemy::Aim(Player& _target)
 
 }
 
+bool Enemy::ReadyToAttack()
+{
+	spawn_projectile += GetFrameTime();
+	
+	if (spawn_projectile >= shot_interval) 
+	{
+		spawn_projectile = 0.0f;
+		return true; 
+	}
+	return false;
+}
+
 void Enemy::Attack(std::vector<Projectile>& projectiles)
 {
-
-	projectiles.push_back(Projectile(pos, direction_to_target, 150.0f));
-	
+	projectiles.push_back(Projectile(pos, 
+									direction_to_target, 
+									150.0f));
 }
 

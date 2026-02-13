@@ -36,6 +36,7 @@ public:
 	void Update(); //Acctualiza el estado del juego (movimiento ej.)
 	void DrawGame(); //Dibuja en pantalla el juego
 	
+	void DeleteInactiveProjectiles(); // Limpieza de los proyectiles
 	
 };
 

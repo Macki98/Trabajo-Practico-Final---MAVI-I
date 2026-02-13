@@ -7,6 +7,11 @@ Projectile::Projectile(Vector2 _StartPos, Vector2 _Target, float _spd)
 	this->dir = _Target;
 	this->speed = _spd;
 
+	r = 50;
+
+	active = true;
+
+
 }
 
 Projectile::~Projectile()
@@ -39,5 +44,10 @@ void Projectile::Draw()
 	if (active) {
 		DrawCircleV(pos, r, ORANGE);
 	}
+}
+
+bool Projectile::IsActive() const
+{
+	return active;
 }
 

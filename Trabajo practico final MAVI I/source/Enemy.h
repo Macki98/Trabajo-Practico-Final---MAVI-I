@@ -15,14 +15,11 @@ private:
 
 	Rectangle enemy; // Prototipo que servira de hitbox
 
-	float spawn_projectile;
-	float shot_interval;
+	float spawn_projectile = 0.0f;
+	float shot_interval = 1.5f;
 
 	Vector2 direction_to_target; // Hacia donde apuntar el proyectil.
 
-	//Mover al GameController para mas eficiencia
-	//Y pasar como parametro& a funcion Attack
-	// Contenedor de proyectiles.
 
 public:
 
@@ -35,6 +32,7 @@ public:
 	void Draw();
 
 	Vector2 Aim(Player& _target); // Pasamos Player como argumento
-	void Attack(std::vector<Projectile>& projectiles);
+	bool ReadyToAttack(); // Bandera que indica cuando disparar.
+	void Attack(std::vector<Projectile>& projectiles); // Pasamos el vector de projectiles como argumento
 };
 
