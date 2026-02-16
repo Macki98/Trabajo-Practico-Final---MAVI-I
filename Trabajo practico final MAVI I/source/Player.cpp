@@ -3,6 +3,7 @@
 Player::Player()
 {
 
+	player = { pos.x,pos.y, 50, 120};
 }
 
 Player::~Player()
@@ -23,7 +24,7 @@ void Player::Init() {
 
 	accel = 0.95f;
 
-	player = { pos.x,pos.y, 50,120 };
+	
 }
 
 void Player::Move()
@@ -76,6 +77,16 @@ void Player::Draw() // Dibujamos el personaje en pantalla
 Vector2 Player::GetPos() const
 {
 	return pos;
+}
+
+float Player::GetWidth() const
+{
+	return player.width;
+}
+
+float Player::GetHeight() const
+{
+	return player.height;
 }
 
 

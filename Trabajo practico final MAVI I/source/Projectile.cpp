@@ -7,7 +7,7 @@ Projectile::Projectile(Vector2 _StartPos, Vector2 _Target, float _spd)
 	this->dir = _Target;
 	this->speed = _spd;
 
-	r = 50;
+	r = 15;
 
 	active = true;
 
@@ -16,6 +16,10 @@ Projectile::Projectile(Vector2 _StartPos, Vector2 _Target, float _spd)
 
 Projectile::~Projectile()
 {
+	std::cout << "DEBUG: Proyectil en X: " << pos.x << 
+								 " en Y: " << pos.y <<
+				" eliminada. Eliminado de memoria." <<
+					std::endl;
 }
 
 void Projectile::Update() 
@@ -24,8 +28,8 @@ void Projectile::Update()
 
 	float deltaTime = GetFrameTime();
 
-	pos.x -= dir.x * deltaTime;
-	pos.y -= dir.y * deltaTime;
+	pos.x += dir.x * speed * deltaTime;
+	pos.y += dir.y * speed * deltaTime;
 
 	// si sale de pantalla desactivamos el proyectil
 	if (
@@ -49,5 +53,20 @@ void Projectile::Draw()
 bool Projectile::IsActive() const
 {
 	return active;
+}
+
+void Projectile::SetActive(bool _status)
+{
+	active = _status;
+}
+
+Vector2 Projectile::GetProPos() const
+{
+	return pos;
+}
+
+float Projectile::GetRadius() const
+{
+	return r;
 }
 

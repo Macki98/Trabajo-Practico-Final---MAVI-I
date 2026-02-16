@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include <iostream>
 
+#include <cmath>
 #include "Player.h"
 #include "Enemy.h"
 #include "Projectile.h"
@@ -18,8 +19,13 @@ private:
 	const int screen_height = 720;
 	const char *title = "Rainbow Shield Hero";
 
-	Player p1;
-	Enemy e1;
+	int max_enemies = 2; //Limite de enemigos disp.
+
+	Player player;
+
+	std::vector<Enemy*>enemies;
+	float enemy_spawn_timer = 0.0f;
+	float enemy_spawn_interval = 2.0f;
 
 	std::vector<Projectile>projectiles;
 
@@ -36,7 +42,13 @@ public:
 	void Update(); //Acctualiza el estado del juego (movimiento ej.)
 	void DrawGame(); //Dibuja en pantalla el juego
 	
+	Vector2 GetRandomSpawnPosition();
+	void CreateEnemy();
+	void DeleteInactiveEnemies();
+
 	void DeleteInactiveProjectiles(); // Limpieza de los proyectiles
 	
+	void CheckPlayerCollisions();
+
 };
 

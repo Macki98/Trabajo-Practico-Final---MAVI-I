@@ -26,5 +26,9 @@ public:
 	void Draw();
 	
 	bool IsActive() const;
+	void SetActive(bool _status);
+	Vector2 GetProPos() const;
+	float GetRadius() const;
+
 };
 

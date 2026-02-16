@@ -22,5 +22,7 @@ public:
 
 	Vector2 GetPos() const; //Funcion que devuelve la posicion del jugador
 	
+	float GetWidth() const;
+	float GetHeight() const;
 };
 
