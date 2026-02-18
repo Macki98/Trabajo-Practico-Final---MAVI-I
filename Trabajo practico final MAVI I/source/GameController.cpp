@@ -4,6 +4,10 @@
 #include <cmath>
 #include <algorithm>
 
+#include "EnemyShooter.h"
+
+#include "EnemyMelee.h"
+
 GameController::GameController()
 {
 	InitWindow(screen_width, screen_height, title);
@@ -60,7 +64,7 @@ void GameController::Update()
 	
 	for (auto e : enemies )
 	{
-		e->Update();
+		e->Update(player.GetPos());
 		e->Aim(player);
 
 		if (e->ReadyToAttack())
@@ -77,6 +81,7 @@ void GameController::Update()
 	CheckPlayerCollisions();
 	
 	DeleteInactiveProjectiles();
+	DeleteInactiveEnemies();
 	// Test
 	std::cout << "Projectiles activos: " << projectiles.size() << std::endl;
 }
@@ -104,40 +109,46 @@ void GameController::DrawGame()
 	EndDrawing();
 }
 
-Vector2 GameController::GetRandomSpawnPosition()
-{
-	float x;
-	float y;
-
-	x = (float)GetScreenWidth() + 100.0f;
-	y = (float)GetRandomValue(0, GetScreenHeight() - 120);
-
-	return {x,y};
-}
 
 void GameController::CreateEnemy()
 {
 	if (enemies.size() < max_enemies)
 	{
 
+		// Seleccionamos que enemigo crear
+
+		Enemy* nuevo_enemy = nullptr;
 		// creamos una X fija fuera de pantalla
 		// ademas de una Y temporal
 		float spawnX = (float)GetScreenWidth() + 100.0f;
-		Enemy* nuevo_enemy = new Enemy({ spawnX, 0.0f }, {70,0});
+		Vector2 initialDir = { -1.0f,0.0f };
 
-		//con el objeto creado, podemos saber si altura
-		float enemy_height = nuevo_enemy->GetEnemyHeigth();
-
-		// con su altura podemos calcular la cordena maxima en Y
-		// para su spawn
-		int y_max = (int)(GetScreenHeight() - enemy_height);
-
-		// evitamos que y_max sea menor a 0
-		float final_y = (float)GetRandomValue(0, (y_max > 0 ? y_max : 0));
+		if (GetRandomValue(0, 1) == 0) {
+			nuevo_enemy = new EnemyShooter({ spawnX,0.0f }, initialDir);
 		
-		// lo ubicamos en su posicion final
-		nuevo_enemy->SetPos({ spawnX,final_y });
+			// Posicionamos de manera segura al enemigo
+			//con el objeto creado, podemos saber su altura
+			float enemy_height = nuevo_enemy->GetEnemyHeigth();
 
+			// con su altura podemos calcular la cordena maxima en Y
+			// para su spawn
+			// evitamos que y_max sea menor a 0
+			// lo ubicamos en su posicion final
+			int y_max = (int)(GetScreenHeight() - enemy_height);
+			float final_y = (float)GetRandomValue(0, (y_max > 0 ? y_max : 0));
+
+			nuevo_enemy->SetPos({ spawnX,final_y });
+		}
+		else {
+			nuevo_enemy = new EnemyMelee({ spawnX,0.0f }, initialDir);
+			
+			float enemy_height = nuevo_enemy->GetEnemyHeigth();
+			
+			float ground_Y = (float)GetScreenHeight() - enemy_height;
+			nuevo_enemy->SetPos({ spawnX,ground_Y });
+		}
+
+		// Registramos al enemigo.
 		enemies.push_back(nuevo_enemy);
 	}
 
@@ -145,6 +156,20 @@ void GameController::CreateEnemy()
 
 void GameController::DeleteInactiveEnemies()
 {
+	for (auto enemy = enemies.begin(); enemy != enemies.end();)
+	{
+		if ((*enemy)->GetEnemyPos().x < -100.0f)
+		{
+			delete *enemy;
+
+			enemy = enemies.erase(enemy);
+
+			std::cout << "DEBUG: Enemigo eliminado de memoria." << std::endl;
+		}
+		else {
+			++enemy++;
+		}
+	}
 }
 
 void GameController::DeleteInactiveProjectiles()

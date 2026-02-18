@@ -5,6 +5,7 @@
 #include <cmath>
 #include "Player.h"
 #include "Enemy.h"
+
 #include "Projectile.h"
 
 #include <vector>
@@ -42,7 +43,7 @@ public:
 	void Update(); //Acctualiza el estado del juego (movimiento ej.)
 	void DrawGame(); //Dibuja en pantalla el juego
 	
-	Vector2 GetRandomSpawnPosition();
+
 	void CreateEnemy();
 	void DeleteInactiveEnemies();
 

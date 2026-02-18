@@ -1,10 +1,10 @@
 #include "Enemy.h"
 
-Enemy::Enemy(Vector2 _StartPos, Vector2 _orientation)
+Enemy::Enemy(Vector2 _StartPos, Vector2 _direction, float _spd)
+	: pos(_StartPos), dir(_direction), speed(_spd)
 {
 	this->pos = _StartPos;
-	this->dir = _orientation;
-
+	
 	enemy = { pos.x, pos.y, 50,120 };
 
 	shot_interval = 3.5f;
@@ -17,23 +17,13 @@ Enemy::~Enemy()
 }
 
 
-void Enemy::Update()
+void Enemy::Update(Vector2 _playerPos)
 {
-
-	float deltaTime = GetFrameTime();
-	pos.x -= dir.x * deltaTime;
-
 }
 
 void Enemy::Draw()
 {
-	DrawRectangleLines(
-		pos.x,
-		pos.y,
-		enemy.width,
-		enemy.height,
-		RED
-		);
+
 }
 
 Vector2 Enemy::Aim(Player& _target)
@@ -71,9 +61,7 @@ bool Enemy::ReadyToAttack()
 
 void Enemy::Attack(std::vector<Projectile>& projectiles)
 {
-	projectiles.push_back(Projectile(pos, 
-									direction_to_target, 
-									150.0f));
+
 }
 
 float Enemy::GetEnemyHeigth() const
@@ -84,5 +72,10 @@ float Enemy::GetEnemyHeigth() const
 void Enemy::SetPos(Vector2 newPos)
 {
 	this->pos = newPos;
+}
+
+Vector2 Enemy::GetEnemyPos() const
+{
+	return pos;
 }
 

@@ -22,7 +22,7 @@ void Player::Init() {
 		0 // Velocidad Y
 	};
 
-	accel = 0.95f;
+	
 
 	
 }
