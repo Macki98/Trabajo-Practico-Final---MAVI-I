@@ -30,12 +30,12 @@ public:
 	// Metodos virtuales puros
 	virtual void Update(Vector2 _playerPos) = 0;
 	virtual void Draw() = 0;
-	virtual void Attack(std::vector<Projectile>& projectiles); // Pasamos el vector de projectiles como argumento
+	virtual void Attack(std::vector<Projectile*>& projectiles) = 0; // Pasamos el vector de projectiles como argumento
+	virtual bool ReadyToAttack(Vector2 player_pos) = 0; // Bandera que indica cuando disparar.
 
 	// Metodos comunes para los "hijos"
-	Vector2 Aim(Player& _target); // Pasamos Player como argumento
-	bool ReadyToAttack(); // Bandera que indica cuando disparar.
-	
+	void Aim(Vector2 _target); // Pasamos Player como argumento
+		
 	
 	float GetEnemyHeigth() const;
 	void SetPos(Vector2 newPos);

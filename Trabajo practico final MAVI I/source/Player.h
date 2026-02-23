@@ -13,7 +13,7 @@ public:
 	Player();
 	~Player();
 
-	void Init(); //Instanciamos al jugador luego de crear la ventana
+	void Init(); //Instanciamos al jugador luego de crear la ventana (momentaneo)
 	
 	void Move(); //Movimiento en el eje x
 	void Jump(); //Salto con gravedad

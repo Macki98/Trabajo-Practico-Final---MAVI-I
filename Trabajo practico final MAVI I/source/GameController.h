@@ -28,7 +28,7 @@ private:
 	float enemy_spawn_timer = 0.0f;
 	float enemy_spawn_interval = 2.0f;
 
-	std::vector<Projectile>projectiles;
+	std::vector<Projectile*>projectiles;
 
 	
 
@@ -45,8 +45,10 @@ public:
 	
 
 	void CreateEnemy();
-	void DeleteInactiveEnemies();
 
+	void UpdateEnemies();
+	void UpdateProjectiles();
+	void DeleteInactiveEnemies();
 	void DeleteInactiveProjectiles(); // Limpieza de los proyectiles
 	
 	void CheckPlayerCollisions();

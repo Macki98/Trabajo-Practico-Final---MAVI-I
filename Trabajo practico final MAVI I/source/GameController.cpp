@@ -22,6 +22,22 @@ GameController::~GameController()
 	CloseAudioDevice();
 	CloseWindow();
 	player.~Player();
+
+
+	//Limpieza de vector de enemigos
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		delete enemies[i];
+	}
+	enemies.clear();
+
+	//Limpieza de vector de proyectiles
+	for (int i = 0; i < projectiles.size(); i++)
+	{
+		delete projectiles[i];
+	}
+	projectiles.clear();
+
 }
 
 void GameController::Run()
@@ -38,12 +54,8 @@ void GameController::Events()
 {
 	if (IsKeyPressed(KEY_ESCAPE))
 	{
-
 		CloseWindow();
-
 	}
-
-
 }
 
 
@@ -62,26 +74,14 @@ void GameController::Update()
 	// Test
 	std::cout << "Cantidad de enemigos activos " << enemies.size()<< std::endl;
 	
-	for (auto e : enemies )
-	{
-		e->Update(player.GetPos());
-		e->Aim(player);
-
-		if (e->ReadyToAttack())
-		{
-			e->Attack(projectiles);
-		}
-	}
-
-	for (auto& pro : projectiles)
-	{
-		pro.Update();
-	}
+	UpdateEnemies();
+	UpdateProjectiles();
 
 	CheckPlayerCollisions();
 	
 	DeleteInactiveProjectiles();
 	DeleteInactiveEnemies();
+	
 	// Test
 	std::cout << "Projectiles activos: " << projectiles.size() << std::endl;
 }
@@ -102,7 +102,7 @@ void GameController::DrawGame()
 
 	for (auto& pro : projectiles)
 	{
-		pro.Draw();
+		pro->Draw();
 	}
 	
 	// Finalizamos el dibujo
@@ -154,6 +154,28 @@ void GameController::CreateEnemy()
 
 }
 
+void GameController::UpdateEnemies()
+{
+	for (auto e : enemies)
+	{
+		e->Aim(player.GetPos());
+		e->Update(player.GetPos());
+
+		if (e->ReadyToAttack(player.GetPos()))
+		{
+			e->Attack(projectiles);
+		}
+	}
+}
+
+void GameController::UpdateProjectiles()
+{
+	for (Projectile* pro : projectiles)
+	{
+		pro->Update();
+	}
+}
+
 void GameController::DeleteInactiveEnemies()
 {
 	for (auto enemy = enemies.begin(); enemy != enemies.end();)
@@ -174,13 +196,19 @@ void GameController::DeleteInactiveEnemies()
 
 void GameController::DeleteInactiveProjectiles()
 {
-	projectiles.erase(
-		std::remove_if(
-			projectiles.begin(),
-			projectiles.end(),
-			[](const Projectile& p) {return !p.IsActive();}),
-		projectiles.end()
-	);
+	for (auto projectile = projectiles.begin(); 
+			  projectile != projectiles.end();)
+	{
+		if (!(*projectile)->IsActive())
+		{
+			delete* projectile;
+			projectile = projectiles.erase(projectile);
+		}
+		else
+		{
+			++projectile;
+		}
+	}
 }
 
 void GameController::CheckPlayerCollisions()
