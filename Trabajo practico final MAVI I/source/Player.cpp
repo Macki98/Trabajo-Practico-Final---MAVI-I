@@ -1,5 +1,7 @@
 #include "Player.h"
 
+#include <iostream>
+
 Player::Player()
 {
 
@@ -22,9 +24,6 @@ void Player::Init() {
 		0 // Velocidad Y
 	};
 
-	
-
-	
 }
 
 void Player::Move()
@@ -53,6 +52,9 @@ void Player::Move()
 	}
 
 	pos.y += dir.y * deltaTime; // Actualizamos la posicion segun la fuerza de gravedad
+	
+	player.x = pos.x;
+	player.y = pos.y;
 }
 
 
@@ -77,6 +79,23 @@ void Player::Draw() // Dibujamos el personaje en pantalla
 Vector2 Player::GetPos() const
 {
 	return pos;
+}
+
+void Player::CheckDamage(std::vector<Projectile*>& projectiles)
+{
+	for (Projectile* p : projectiles) {
+
+		if (p->IsActive()) {
+
+			if (CheckCollisionRecs(player, p->GetHitbox())) {
+
+				p->SetActive(false);
+
+				std::cout << "El jugador recibio daño" << std::endl;
+				
+			}
+		}
+	}
 }
 
 float Player::GetWidth() const

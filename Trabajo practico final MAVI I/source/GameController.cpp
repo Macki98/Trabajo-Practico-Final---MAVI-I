@@ -77,7 +77,7 @@ void GameController::Update()
 	UpdateEnemies();
 	UpdateProjectiles();
 
-	CheckPlayerCollisions();
+	player.CheckDamage(projectiles);
 	
 	DeleteInactiveProjectiles();
 	DeleteInactiveEnemies();
@@ -95,14 +95,16 @@ void GameController::DrawGame()
 
 	player.Draw();
 	
-	
 	for (auto& e : enemies) {
 		e->Draw();
+
+		DrawText(TextFormat("Enemigo 0 en: X:%.2f Y:%.2f", e->GetEnemyPos().x, e->GetEnemyPos().y),10,50,20,RED);
 	}
 
 	for (auto& pro : projectiles)
 	{
 		pro->Draw();
+		DrawRectangleLinesEx(pro->GetHitbox(), 2, GREEN);
 	}
 	
 	// Finalizamos el dibujo
@@ -137,7 +139,7 @@ void GameController::CreateEnemy()
 			int y_max = (int)(GetScreenHeight() - enemy_height);
 			float final_y = (float)GetRandomValue(0, (y_max > 0 ? y_max : 0));
 
-			nuevo_enemy->SetPos({ spawnX,final_y });
+			nuevo_enemy->SetPos({ spawnX, final_y });
 		}
 		else {
 			nuevo_enemy = new EnemyMelee({ spawnX,0.0f }, initialDir);
@@ -209,49 +211,6 @@ void GameController::DeleteInactiveProjectiles()
 			++projectile;
 		}
 	}
-}
-
-void GameController::CheckPlayerCollisions()
-{
-	for (auto& pro : projectiles)
-	{
-		if (!pro.IsActive()) continue;
-
-		float offSet = 6.0f; // margen de impacto
-
-		//Definimos los bordes del player, su hitbox.
-		float playerLeft = player.GetPos().x + offSet;
-		float playerRight = (player.GetPos().x + player.GetWidth()) - offSet;
-		float playerTop = player.GetPos().y;
-		float playerBottom = (player.GetPos().y + player.GetHeight()) - offSet;
-		
-		//Punto mas cercano al circulo dentro del rect.
-		float closestX = std::clamp(pro.GetProPos().x,
-							playerLeft,
-							playerRight);
-
-		float closestY = std::clamp(pro.GetProPos().y,
-							playerTop,
-							playerBottom);
-
-
-		// Distancia entre el centro del ciruclo y wl punto cercano.
-
-		float distancePlayer = (pro.GetProPos().x - closestX) * 
-								(pro.GetProPos().x - closestX) +
-								(pro.GetProPos().y - closestY) *
-								(pro.GetProPos().y - closestY);
-
-		// Comprobar colision.
-		if (distancePlayer < (pro.GetRadius() * pro.GetRadius()))
-		{
-			pro.SetActive(false);
-
-			std::cout << "Impacto al player" << std::endl;
-		}
-
-	}
-
 }
 
 

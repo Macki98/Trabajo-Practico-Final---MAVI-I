@@ -29,6 +29,17 @@ void Bullet::Draw()
 	}
 }
 
+Rectangle Bullet::GetHitbox()
+{
+	return 
+	{		
+			pos.x - r,
+			pos.y - r,
+			r * 2,
+			r * 2}
+	;
+}
+
 float Bullet::GetRadius() const
 {
 	return r;

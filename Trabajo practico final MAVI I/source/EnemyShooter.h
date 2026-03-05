@@ -11,12 +11,7 @@ class EnemyShooter : public Enemy
 {
 public:
 
-	EnemyShooter(	Vector2 _startPos, 
-					Vector2 _direction) : 
-			Enemy	(	_startPos, 
-						_direction, 
-						100.0f)
-	{}
+	EnemyShooter(Vector2 _startPos, Vector2 _direction);
 	
 	void Update(Vector2 _playerPos) override;
 	void Draw() override;

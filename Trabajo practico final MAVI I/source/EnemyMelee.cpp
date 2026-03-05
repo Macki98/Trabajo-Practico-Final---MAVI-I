@@ -5,10 +5,10 @@
 EnemyMelee::EnemyMelee(Vector2 _startPos, Vector2 _direction)
 					: Enemy(_startPos, _direction, 250.0f)
 {
-	enemy = { _startPos.x, _startPos.y,50.0f,120.0f };
+	
 
-	attack_range = 75.0f;
-	shot_interval = 1.2f;
+	attack_range = 100.0f;
+	shot_interval = 0.5f;
 	spawn_projectile = 0.0f;
 
 }
@@ -19,14 +19,17 @@ void EnemyMelee::Update(Vector2 _playerPos)
 	
 	float distance = Vector2Distance(pos, _playerPos);
 
-	if (distance > attack_range - 5.0f) 
+	
+	if (distance > attack_range &&
+		spawn_projectile == 0.0f) 
 	{	
 		pos.x += direction_to_target.x * speed * deltaTime;
 		pos.y += direction_to_target.y * speed * deltaTime;
-
-		enemy.x = pos.x;
-		enemy.y = pos.y;
+		
 	}
+
+	enemy.x = pos.x;
+	enemy.y = pos.y;
 }
 
 void EnemyMelee::Draw()
@@ -36,22 +39,29 @@ void EnemyMelee::Draw()
 
 void EnemyMelee::Attack(std::vector<Projectile*>& projectiles)
 {
-	projectiles.push_back(new Sword(&pos));
+	projectiles.push_back(new Sword(&pos, &direction_to_target));
 
-	std::cout << "DEBUG: EnemyShooter disparando" << std::endl;
+	std::cout << "DEBUG: EnemyMelee Atacando" << std::endl;
 }
 
 bool EnemyMelee::ReadyToAttack(Vector2 player_pos)
 {
-	spawn_projectile += GetFrameTime();
-
 	float distance = Vector2Distance(pos, player_pos);
 
-	if (spawn_projectile >= shot_interval && distance <= attack_range)
-	{
-		spawn_projectile = 0.0f;
-		return true;
+	if (distance <= attack_range) {
+		spawn_projectile += GetFrameTime();
+
+		if (spawn_projectile >= shot_interval)
+		{
+			spawn_projectile = 0.0f;
+			return true;
+		}
+		else {
+			spawn_projectile = 0.0f;
+		}
+		
+		return false;
+		
 	}
 
-	return false;
 }

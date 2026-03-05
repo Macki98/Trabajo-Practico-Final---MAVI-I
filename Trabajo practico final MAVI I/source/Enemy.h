@@ -11,8 +11,8 @@
 class Enemy
 {
 protected:
-	Vector2 pos = Vector2Zero(); // Posicion en el eje
-	Vector2 dir = Vector2Zero(); // Fuerza de desplazamiernto
+	Vector2 pos; // Posicion en el eje
+	Vector2 dir; // Fuerza de desplazamiernto
 	float speed; // Velocidad de mov.
 	Rectangle enemy; // Prototipo que servira de hitbox
 

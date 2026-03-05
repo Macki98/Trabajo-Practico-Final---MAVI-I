@@ -25,6 +25,8 @@ public:
 	void Update() override;
 	void Draw() override;
 
+	Rectangle GetHitbox() override;
+
 	float GetRadius() const;
 
 };

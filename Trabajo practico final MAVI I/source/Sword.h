@@ -10,17 +10,20 @@ class Sword : public Projectile
 private:
 
 	Vector2* ownerPos;
+	Vector2* ownerDir;
 
 public:
 
-	Sword(Vector2* _ownerPos) :
-		Projectile(*_ownerPos, 0.12f), ownerPos(_ownerPos)
+	Sword(Vector2* _ownerPos, Vector2* _ownerDir) :
+		Projectile(	*_ownerPos, 0.15f), 
+					ownerPos(_ownerPos), 
+					ownerDir(_ownerDir)
 	{}
 
 	void Update() override;
-
 	void Draw() override;
 
+	Rectangle GetHitbox() override;
 
 };
 

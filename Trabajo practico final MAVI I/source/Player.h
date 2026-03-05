@@ -1,6 +1,10 @@
 #pragma once
 #include "raylib.h"
 #include "raymath.h"
+#include "Projectile.h"
+
+#include <vector>
+
 class Player
 {
 private:
@@ -21,6 +25,7 @@ public:
 
 	Vector2 GetPos() const; //Funcion que devuelve la posicion del jugador
 	
+	void CheckDamage(std::vector<Projectile*>& projectiles);
 	float GetWidth() const; // Funcion que devuelve el ancho del pj.
 	float GetHeight() const; // Funcion que devuelve el alto del pj.
 };

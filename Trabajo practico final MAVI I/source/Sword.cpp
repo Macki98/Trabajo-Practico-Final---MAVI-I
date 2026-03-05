@@ -2,20 +2,44 @@
 
 void Sword::Update()
 {
+	
 	lifeTime -= GetFrameTime();
+	
 
-	if (ownerPos != nullptr)
+	if (lifeTime <= 0)
 	{
-		pos = *ownerPos;
+		SetActive(false);
 	}
 
 }
 
 void Sword::Draw()
 {
-	DrawRectangleV({ pos.x - 20, pos.y + 10 }, 
-					{ 80,30 }, 
-					Fade(SKYBLUE, 0.6f));
+	Rectangle box = GetHitbox();
+
+	DrawRectangleRec(box, Fade(BLUE, 0.5f));
+}
+
+Rectangle Sword::GetHitbox()
+{
+	float anchoAtaque = 80.0f;
+	float altoAtaque = 40.0f;
+	float offsetX = 0;
+
+	if (ownerDir->x < 0) {
+		offsetX =- anchoAtaque;
+	}
+	else {
+		offsetX = 50.0f;
+	}
+
+	return 
+	{
+		pos.x + offsetX,
+		pos.y + 40.0f,
+		anchoAtaque,
+		altoAtaque,
+	};
 }
 
 

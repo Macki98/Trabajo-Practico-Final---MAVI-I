@@ -51,7 +51,7 @@ public:
 	void DeleteInactiveEnemies();
 	void DeleteInactiveProjectiles(); // Limpieza de los proyectiles
 	
-	void CheckPlayerCollisions();
+	
 
 };
 

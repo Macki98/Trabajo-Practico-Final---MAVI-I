@@ -9,16 +9,18 @@ EnemyShooter::EnemyShooter	(Vector2 _startPos,
 							_direction,
 							100.0f)
 {
-	enemy = { _startPos.x, _startPos.y, 50.0f, 120.0f };
+	
 
 	shot_interval = 2.0f;
 	spawn_projectile = 0.0f;
 }
 
-void EnemyShooter::Update(Vector2 _playerPos)
+void EnemyShooter::Update(Vector2 /*_playerPos*/)
 {
 
 	float deltaTime = GetFrameTime();
+
+	
 
 	pos.x -= speed * deltaTime;
 	enemy.x = pos.x;
@@ -37,7 +39,7 @@ void EnemyShooter::Attack(std::vector<Projectile*>& projectiles)
 	std::cout << "DEBUG: EnemyShooter disparando" << std::endl;
 }
 
-bool EnemyShooter::ReadyToAttack(Vector2 player_pos)
+bool EnemyShooter::ReadyToAttack(Vector2 /*player_pos*/)
 {
 	if (pos.x > (float)GetScreenWidth() - 50.0f) return false;
 

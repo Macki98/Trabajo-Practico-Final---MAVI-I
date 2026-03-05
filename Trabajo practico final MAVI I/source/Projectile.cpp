@@ -11,7 +11,7 @@ Projectile::~Projectile()
 
 bool Projectile::IsActive() const
 {
-	return active;
+	return active && lifeTime > 0;
 }
 
 void Projectile::SetActive(bool _status)

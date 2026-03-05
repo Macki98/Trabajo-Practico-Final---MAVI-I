@@ -15,19 +15,22 @@ protected:
 public:
 
 	Projectile(Vector2 _StartPos,
-			   float _life) : 
-			pos(_StartPos), 
-			lifeTime(_life), 
-			active(true) 
-	{}
+		float _life) :
+		pos(_StartPos),
+		lifeTime(_life),
+		active(true)
+	{
+	};
 	
-	virtual ~Projectile() {}
+	virtual ~Projectile();
 
 
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
+	virtual Rectangle GetHitbox() = 0;
 	
-	bool IsActive() const { return active && lifeTime > 0;} // bandera que dermina si esta activo o si debe ser eliminado
+	
+	bool IsActive() const; // bandera que dermina si esta activo o si debe ser eliminado
 	
 	
 	void SetActive(bool _status); // Seteamos la bandera
