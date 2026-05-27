@@ -15,7 +15,7 @@ private:
 public:
 
 	Sword(Vector2* _ownerPos, Vector2* _ownerDir) :
-		Projectile(	*_ownerPos, 0.15f), 
+		Projectile(	*_ownerPos, 0.25f), 
 					ownerPos(_ownerPos), 
 					ownerDir(_ownerDir)
 	{}

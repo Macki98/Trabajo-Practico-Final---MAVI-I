@@ -41,5 +41,7 @@ public:
 	void SetPos(Vector2 newPos);
 
 	Vector2 GetEnemyPos() const;
+	float GetSpawnProjectile() const;
+	float GetShotInterval() const;
 };
 

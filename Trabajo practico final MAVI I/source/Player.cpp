@@ -89,9 +89,8 @@ void Player::CheckDamage(std::vector<Projectile*>& projectiles)
 
 			if (CheckCollisionRecs(player, p->GetHitbox())) {
 
-				p->SetActive(false);
-
 				std::cout << "El jugador recibio daño" << std::endl;
+				p->SetActive(false);
 				
 			}
 		}

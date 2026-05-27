@@ -20,12 +20,15 @@ void EnemyMelee::Update(Vector2 _playerPos)
 	float distance = Vector2Distance(pos, _playerPos);
 
 	
-	if (distance > attack_range &&
-		spawn_projectile == 0.0f) 
+	if (distance > attack_range) 
 	{	
 		pos.x += direction_to_target.x * speed * deltaTime;
 		pos.y += direction_to_target.y * speed * deltaTime;
 		
+	}
+	else
+	{
+		spawn_projectile += deltaTime;
 	}
 
 	enemy.x = pos.x;
@@ -35,6 +38,9 @@ void EnemyMelee::Update(Vector2 _playerPos)
 void EnemyMelee::Draw()
 {
 	DrawRectangleRec(enemy, BLUE);
+
+	DrawText(TextFormat("%.2f / %.2f", GetSpawnProjectile(), GetShotInterval()),
+		GetEnemyPos().x, GetEnemyPos().y - 20, 10, RED);
 }
 
 void EnemyMelee::Attack(std::vector<Projectile*>& projectiles)
@@ -46,22 +52,13 @@ void EnemyMelee::Attack(std::vector<Projectile*>& projectiles)
 
 bool EnemyMelee::ReadyToAttack(Vector2 player_pos)
 {
-	float distance = Vector2Distance(pos, player_pos);
-
-	if (distance <= attack_range) {
-		spawn_projectile += GetFrameTime();
 
 		if (spawn_projectile >= shot_interval)
 		{
 			spawn_projectile = 0.0f;
 			return true;
 		}
-		else {
-			spawn_projectile = 0.0f;
-		}
-		
+
 		return false;
-		
-	}
 
 }

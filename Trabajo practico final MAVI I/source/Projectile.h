@@ -12,6 +12,8 @@ protected:
 
 	bool active;
 
+	bool hasHit = false;
+
 public:
 
 	Projectile(Vector2 _StartPos,
@@ -36,6 +38,8 @@ public:
 	void SetActive(bool _status); // Seteamos la bandera
 	Vector2 GetProPos() const;
 	
+	bool GetHasHit();
+	void SetHasHit(bool _status);
 
 };
 

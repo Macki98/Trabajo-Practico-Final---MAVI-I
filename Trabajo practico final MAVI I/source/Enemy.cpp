@@ -47,3 +47,13 @@ Vector2 Enemy::GetEnemyPos() const
 	return pos;
 }
 
+float Enemy::GetSpawnProjectile() const
+{
+	return spawn_projectile;
+}
+
+float Enemy::GetShotInterval() const
+{
+	return shot_interval;
+}
+
