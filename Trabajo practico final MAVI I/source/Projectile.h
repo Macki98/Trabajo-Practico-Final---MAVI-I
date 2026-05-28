@@ -38,8 +38,8 @@ public:
 	void SetActive(bool _status); // Seteamos la bandera
 	Vector2 GetProPos() const;
 	
-	bool GetHasHit();
-	void SetHasHit(bool _status);
+	// bool GetHasHit();
+	// void SetHasHit(bool _status);
 
 };
 

@@ -6,7 +6,6 @@
 
 #include "EnemyShooter.h"
 
-#include "EnemyMelee.h"
 
 GameController::GameController()
 {
@@ -125,30 +124,20 @@ void GameController::CreateEnemy()
 		float spawnX = (float)GetScreenWidth() + 100.0f;
 		Vector2 initialDir = { -1.0f,0.0f };
 
-		if (GetRandomValue(0, 1) == 0) {
-			nuevo_enemy = new EnemyShooter({ spawnX,0.0f }, initialDir);
+		nuevo_enemy = new EnemyShooter({ spawnX,0.0f }, initialDir);
 		
-			// Posicionamos de manera segura al enemigo
-			//con el objeto creado, podemos saber su altura
-			float enemy_height = nuevo_enemy->GetEnemyHeigth();
+		// Posicionamos de manera segura al enemigo
+		// con el objeto creado, podemos saber su altura
+		float enemy_height = nuevo_enemy->GetEnemyHeigth();
 
-			// con su altura podemos calcular la cordena maxima en Y
-			// para su spawn
-			// evitamos que y_max sea menor a 0
-			// lo ubicamos en su posicion final
-			int y_max = (int)(GetScreenHeight() - enemy_height);
-			float final_y = (float)GetRandomValue(0, (y_max > 0 ? y_max : 0));
+		// con su altura podemos calcular la cordena maxima en Y
+		// para su spawn
+		// evitamos que y_max sea menor a 0
+		// lo ubicamos en su posicion final
+		int y_max = (int)(GetScreenHeight() - enemy_height);
+		float final_y = (float)GetRandomValue(0, (y_max > 0 ? y_max : 0));
 
-			nuevo_enemy->SetPos({ spawnX, final_y });
-		}
-		else {
-			nuevo_enemy = new EnemyMelee({ spawnX,0.0f }, initialDir);
-			
-			float enemy_height = nuevo_enemy->GetEnemyHeigth();
-			
-			float ground_Y = (float)GetScreenHeight() - enemy_height;
-			nuevo_enemy->SetPos({ spawnX,ground_Y });
-		}
+		nuevo_enemy->SetPos({ spawnX, final_y });
 
 		// Registramos al enemigo.
 		enemies.push_back(nuevo_enemy);
