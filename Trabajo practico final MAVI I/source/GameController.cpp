@@ -87,7 +87,7 @@ void GameController::Update()
 		enemy_spawn_timer = 0.0f;
 	}
 	// Test
-	std::cout << "Cantidad de enemigos activos " << enemies.size()<< std::endl;
+	//std::cout << "Cantidad de enemigos activos " << enemies.size()<< std::endl;
 	
 	UpdateEnemies();
 	UpdateProjectiles();
@@ -189,9 +189,11 @@ void GameController::UpdateProjectiles()
 
 void GameController::CheckCovers()
 {
-	for (auto c : covers)
+	
+	if (player.IsCovered() && player.GetCurrentCover() != nullptr)
 	{
-		if (!c->IsOccupied()) continue;
+		Cover* activeCover = player.GetCurrentCover();
+		Rectangle coverRect = activeCover->GetRect();
 
 		for (auto p : projectiles)
 		{
@@ -199,29 +201,21 @@ void GameController::CheckCovers()
 			if (p->IsActive() && !p->IsFromPlayer())
 			{
 				// Si la bala toca físicamente el bloque gris de la cobertura
-				if (CheckCollisionRecs(c->GetRect(), p->GetHitbox()))
+				if (CheckCollisionRecs(coverRect, p->GetHitbox()))
 				{
 					Vector2 bulletDir = p->GetProDir();
 
-					if (player.GetPos().x < c->GetRect().x)
+					if (player.GetPos().x < coverRect.x && bulletDir.x < 0)
 					{
-						if (bulletDir.x < 0)
-						{
-							// ¡BUM! La bala muere en la pared de la cobertura
-							p->SetActive(false);
-							TraceLog(LOG_INFO, "EN COBERTURA: Bala destruida en el frente izq.");
-
-						}
+						// ¡BUM! La bala muere en la pared de la cobertura
+						TraceLog(LOG_INFO, "EN COBERTURA: Bala destruida en el frente izq.");
+						p->SetActive(false);
 					}
-					else
+					else if (player.GetPos().x > coverRect.x && bulletDir.x > 0)
 					{
-						if (bulletDir.x > 0)
-						{
-							// ¡BUM! La bala muere en la pared de la cobertura
-							p->SetActive(false);
-							TraceLog(LOG_INFO, "EN COBERTURA: Bala destruida en el frente der.");
-
-						}
+						// ¡BUM! La bala muere en la pared de la cobertura
+						TraceLog(LOG_INFO, "EN COBERTURA: Bala destruida en el frente der.");
+						p->SetActive(false);
 					}
 				}
 			}
@@ -239,7 +233,7 @@ void GameController::DeleteInactiveEnemies()
 
 			enemy = enemies.erase(enemy);
 
-			std::cout << "DEBUG: Enemigo eliminado de memoria." << std::endl;
+			//std::cout << "DEBUG: Enemigo eliminado de memoria." << std::endl;
 		}
 		else {
 			++enemy++;

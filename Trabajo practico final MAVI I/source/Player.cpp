@@ -167,26 +167,21 @@ bool Player::IsCovered() const
 	return isCovered;
 }
 
+Cover* Player::GetCurrentCover() const
+{
+	return currentCover;
+}
+
 void Player::CheckDamage(std::vector<Projectile*>& projectiles)
 {
-
 	for (Projectile* p : projectiles) {
 
 		if (p->IsActive() && !p->IsFromPlayer()) {
 
-			if (CheckCollisionRecs(player, p->GetHitbox())) {
-
-				if (isCovered)
-				{
-					p->SetActive(false);
-					std::cout << "El jugador esta cubierto" << std::endl;
-					continue;
-				}
-				else
-				{
-					std::cout << "El jugador recibio daño" << std::endl;
-					p->SetActive(false);
-				}
+			if (CheckCollisionRecs(player, p->GetHitbox())) 
+			{
+				std::cout << "El jugador recibio daño" << std::endl;
+				p->SetActive(false);
 			}
 		}
 	}

@@ -38,7 +38,10 @@ public:
 	
 	
 	bool IsCovered() const;
+	Cover* GetCurrentCover() const;
+
 	void CheckDamage(std::vector<Projectile*>& projectiles);
+
 	float GetWidth() const; // Funcion que devuelve el ancho del pj.
 	float GetHeight() const; // Funcion que devuelve el alto del pj.
 };
