@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include <iostream>
 
 Enemy::Enemy(Vector2 _StartPos, Vector2 _direction, float _spd)
 {
@@ -6,7 +7,7 @@ Enemy::Enemy(Vector2 _StartPos, Vector2 _direction, float _spd)
 	dir = _direction;
 	speed = _spd;
 
-	enemy = { _StartPos.x, _StartPos.y, 50.0f, 120.0f };
+	enemy = { _StartPos.x, _StartPos.y, 60.0f, 120.0f };
 
 	spawn_projectile = 0.0f;
 	shot_interval = 0.0f;
@@ -28,6 +29,30 @@ void Enemy::Aim(Vector2 _target)
 	else {
 		direction_to_target = { 0,0 };
 	}
+}
+
+void Enemy::CheckDamage(std::vector<Projectile*>& projectiles)
+{
+	if (!isAlive) return;
+	
+	for (Projectile* p : projectiles) {
+
+		if (p->IsActive() && p->IsFromPlayer()) {
+
+			if (CheckCollisionRecs(enemy, p->GetHitbox())) {
+
+				std::cout << "El enemigo recibio daño" << std::endl;
+				isAlive = false;
+				p->SetActive(false);
+
+			}
+		}
+	}
+}
+
+bool Enemy::IsAlive()
+{
+	return isAlive;
 }
 
 float Enemy::GetEnemyHeigth() const
@@ -56,4 +81,5 @@ float Enemy::GetShotInterval() const
 {
 	return shot_interval;
 }
+
 

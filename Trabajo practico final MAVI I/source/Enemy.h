@@ -21,6 +21,7 @@ protected:
 
 	Vector2 direction_to_target = Vector2Zero(); // Hacia donde apuntar el proyectil.
 
+	bool isAlive;
 
 public:
 
@@ -35,13 +36,18 @@ public:
 
 	// Metodos comunes para los "hijos"
 	void Aim(Vector2 _target); // Pasamos Player como argumento
-		
 	
+	bool IsAlive();
+	
+	void CheckDamage(std::vector<Projectile*>& projectiles);
+
 	float GetEnemyHeigth() const;
 	void SetPos(Vector2 newPos);
 
 	Vector2 GetEnemyPos() const;
 	float GetSpawnProjectile() const;
 	float GetShotInterval() const;
+
+	
 };
 

@@ -24,4 +24,15 @@ Vector2 Projectile::GetProPos() const
 	return pos;
 }
 
+bool Projectile::IsFromPlayer()
+{
+	return isFromPlayer;
+}
+
+Vector2 Projectile::GetProDir() const
+{
+	return direction;
+}
+
+
 

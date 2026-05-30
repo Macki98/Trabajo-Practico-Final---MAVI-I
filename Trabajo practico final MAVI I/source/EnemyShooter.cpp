@@ -1,6 +1,5 @@
 #include "EnemyShooter.h"
 
-#include "Bullet.h"
 #include <iostream>
 
 EnemyShooter::EnemyShooter	(Vector2 _startPos,
@@ -17,12 +16,15 @@ EnemyShooter::EnemyShooter	(Vector2 _startPos,
 
 void EnemyShooter::Update(Vector2 /*_playerPos*/)
 {
+	float x_max = 500.0f;
 
 	float deltaTime = GetFrameTime();
 
-	
-
 	pos.x -= speed * deltaTime;
+	if (pos.x <= x_max)
+	{
+		pos.x = x_max;
+	}
 	enemy.x = pos.x;
 }
 
@@ -34,7 +36,7 @@ void EnemyShooter::Draw()
 void EnemyShooter::Attack(std::vector<Projectile*>& projectiles)
 {
 	
-	projectiles.push_back(new Bullet(pos, direction_to_target));
+	projectiles.push_back(new Bullet(pos, direction_to_target, false));
 
 	std::cout << "DEBUG: EnemyShooter disparando" << std::endl;
 }

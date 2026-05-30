@@ -156,6 +156,7 @@ xcopy "$(SolutionDir)..\lib\vld\64-bit\Microsoft.DTfW.DHL.manifest" "$(OutDir)" 
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Cover.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyShooter.cpp" />
     <ClCompile Include="GameController.cpp" />
@@ -165,6 +166,7 @@ xcopy "$(SolutionDir)..\lib\vld\64-bit\Microsoft.DTfW.DHL.manifest" "$(OutDir)" 
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Cover.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyShooter.h" />
     <ClInclude Include="GameController.h" />

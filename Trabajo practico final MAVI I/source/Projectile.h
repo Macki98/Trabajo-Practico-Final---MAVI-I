@@ -7,20 +7,25 @@ class Projectile
 protected:
 
 	Vector2 pos;
+	Vector2 direction;
 	
 	float lifeTime;
 
 	bool active;
 
-	bool hasHit = false;
+	bool isFromPlayer;
 
 public:
 
 	Projectile(Vector2 _StartPos,
-		float _life) :
+		Vector2 _dir,
+		float _life,
+		bool _isFromPlayer) :
 		pos(_StartPos),
+		direction(_dir),
 		lifeTime(_life),
-		active(true)
+		active(true), 
+		isFromPlayer (_isFromPlayer)
 	{
 	};
 	
@@ -38,8 +43,8 @@ public:
 	void SetActive(bool _status); // Seteamos la bandera
 	Vector2 GetProPos() const;
 	
-	// bool GetHasHit();
-	// void SetHasHit(bool _status);
+	bool IsFromPlayer();
+	Vector2 GetProDir() const;
 
 };
 

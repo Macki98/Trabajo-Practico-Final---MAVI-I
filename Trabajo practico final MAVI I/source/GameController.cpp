@@ -14,6 +14,10 @@ GameController::GameController()
 	InitAudioDevice();
 
 	player.Init();
+
+	covers.push_back(new Cover(Vector2{ 200.0f, 620.0f }, 50.0f, 100.0f));
+
+	covers.push_back(new Cover(Vector2{ 400.0f, 570.0f }, 40.0f, 150.0f));
 }
 
 GameController::~GameController()
@@ -37,6 +41,11 @@ GameController::~GameController()
 	}
 	projectiles.clear();
 
+	for (auto c : covers) {
+		delete c;
+	}
+	covers.clear();
+
 }
 
 void GameController::Run()
@@ -55,12 +64,19 @@ void GameController::Events()
 	{
 		CloseWindow();
 	}
+
+	
 }
 
 
 void GameController::Update()
 {	
-	player.Move();
+	player.Shoot(projectiles);
+	player.Move(covers);
+
+	CheckCovers();
+
+	player.CheckDamage(projectiles);
 
 	enemy_spawn_timer += GetFrameTime();
 
@@ -75,8 +91,6 @@ void GameController::Update()
 	
 	UpdateEnemies();
 	UpdateProjectiles();
-
-	player.CheckDamage(projectiles);
 	
 	DeleteInactiveProjectiles();
 	DeleteInactiveEnemies();
@@ -91,6 +105,10 @@ void GameController::DrawGame()
 	BeginDrawing();
 	// Limpiamos la pantalla 
 	ClearBackground(WHITE);
+	
+	for (auto c : covers) {
+		c->Draw();
+	}
 
 	player.Draw();
 	
@@ -134,10 +152,10 @@ void GameController::CreateEnemy()
 		// para su spawn
 		// evitamos que y_max sea menor a 0
 		// lo ubicamos en su posicion final
-		int y_max = (int)(GetScreenHeight() - enemy_height);
-		float final_y = (float)GetRandomValue(0, (y_max > 0 ? y_max : 0));
+		float y_max = (int)(GetScreenHeight() - enemy_height);
+		//float final_y = (float)GetRandomValue(0, (y_max > 0 ? y_max : 0));
 
-		nuevo_enemy->SetPos({ spawnX, final_y });
+		nuevo_enemy->SetPos({ spawnX, y_max });
 
 		// Registramos al enemigo.
 		enemies.push_back(nuevo_enemy);
@@ -151,6 +169,8 @@ void GameController::UpdateEnemies()
 	{
 		e->Aim(player.GetPos());
 		e->Update(player.GetPos());
+
+		e->CheckDamage(projectiles);
 
 		if (e->ReadyToAttack(player.GetPos()))
 		{
@@ -167,11 +187,53 @@ void GameController::UpdateProjectiles()
 	}
 }
 
+void GameController::CheckCovers()
+{
+	for (auto c : covers)
+	{
+		if (!c->IsOccupied()) continue;
+
+		for (auto p : projectiles)
+		{
+			// Solo nos interesan balas activas que vengan de los ENEMIGOS
+			if (p->IsActive() && !p->IsFromPlayer())
+			{
+				// Si la bala toca físicamente el bloque gris de la cobertura
+				if (CheckCollisionRecs(c->GetRect(), p->GetHitbox()))
+				{
+					Vector2 bulletDir = p->GetProDir();
+
+					if (player.GetPos().x < c->GetRect().x)
+					{
+						if (bulletDir.x < 0)
+						{
+							// ¡BUM! La bala muere en la pared de la cobertura
+							p->SetActive(false);
+							TraceLog(LOG_INFO, "EN COBERTURA: Bala destruida en el frente izq.");
+
+						}
+					}
+					else
+					{
+						if (bulletDir.x > 0)
+						{
+							// ¡BUM! La bala muere en la pared de la cobertura
+							p->SetActive(false);
+							TraceLog(LOG_INFO, "EN COBERTURA: Bala destruida en el frente der.");
+
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 void GameController::DeleteInactiveEnemies()
 {
 	for (auto enemy = enemies.begin(); enemy != enemies.end();)
 	{
-		if ((*enemy)->GetEnemyPos().x < -100.0f)
+		if ((*enemy)->GetEnemyPos().x < -100.0f || !(*enemy)->IsAlive())
 		{
 			delete *enemy;
 

@@ -5,9 +5,8 @@
 #include <cmath>
 #include "Player.h"
 #include "Enemy.h"
-
 #include "Projectile.h"
-
+#include "Cover.h"
 #include <vector>
 
 
@@ -30,6 +29,7 @@ private:
 
 	std::vector<Projectile*>projectiles;
 
+	std::vector<Cover*>covers;
 	
 
 public:
@@ -48,6 +48,7 @@ public:
 
 	void UpdateEnemies();
 	void UpdateProjectiles();
+	void CheckCovers();
 	void DeleteInactiveEnemies();
 	void DeleteInactiveProjectiles(); // Limpieza de los proyectiles
 	

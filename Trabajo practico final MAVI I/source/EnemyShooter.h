@@ -4,7 +4,7 @@
 #include "raymath.h"
 #include <vector>
 #include <cmath>
-
+#include "Bullet.h"
 #include "Enemy.h"
 
 class EnemyShooter : public Enemy
